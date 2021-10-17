@@ -1,0 +1,96 @@
+﻿
+<div id="frmUpdate" class="form-horizontal">
+    <div class="form-group">
+        <div class="row">
+            <label class="col-sm-3">Chọn sản phẩm</label>
+            <div class="col-sm-8">
+                <select id="cbSanPham" name="">
+                    @foreach (var item in (List<ChuyenDeDiu.Models.SanPham>)ViewData["SanPham"])
+                    {
+                        <option value="@item.Ma">
+                            @item.Ten
+                        </option>
+                    }
+                </select>
+            </div>
+            <div class="form-group">
+                <div class="row">
+                    <label class="col-sm-3">Số lượng</label>
+                    <div class="col-sm-8">
+                        <input type="number" required class="form-control" id="txtSoLuong" placeholder="Số lượng">
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="row">
+                    <label class="col-sm-3">Giá nhập</label>
+                    <div class="col-sm-8">
+                        <input required type="number" class="form-control" id="txtGiaNhap" placeholder="giá nhập">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</div>
+<script>
+    var frmUpdate = $('#frmUpdate');
+    $(document).ready(function () {
+        addRequired(frmUpdate);
+        frmUpdate.find('lbStatus').on('click', function () {
+            frmUpdate.find('ckbStatus').prop('checked') = !frmUpdate.find('ckbStatus').prop('checked')
+        })
+    });
+
+    $('#modal-form').find('#btnSave').off("click").on('click', function (e) {
+        e.preventDefault();
+        create();
+    });
+    function create() {
+        if (ValidateForm(frmUpdate)) {
+            return;
+        }
+
+        $.ajax({
+            url: urlDomain + "/CreateChiTiet",
+            method: "POST",
+            data: {
+                SoLuong: frmUpdate.find('#txtSoLuong').val(),
+                MaPhieuNhap: $('#txtMaPhieu').val(),
+                GiaNhap: frmUpdate.find('#txtGiaNhap').val(),
+                MaSP: frmUpdate.find('#cbSanPham').val(),
+            }
+            , success: function (response) {
+
+                if (response.result) {
+                    // datasource = response.data
+                    showAlert("Thêm mới thành công", 2)
+                    getData();
+                    hideContentModal()
+
+                } else {
+                    showAlert(response.message)
+                }
+            }
+        });
+        function getData() {
+
+            $.ajax({
+                url: urlDomain + "/getlistChiTiet?maPhieu=" + $('#txtMaPhieu').val(),
+                method: "GET",
+                data: {
+                    title: frmFilter.find('#txtName').val(),
+                    take: take,
+                    skip: skip
+                }
+                , success: function (response) {
+                    $('#dtTable').html(response);
+
+                }
+            });
+        }
+    }
+
+</script>
+
+

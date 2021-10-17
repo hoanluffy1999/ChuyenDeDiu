@@ -1,0 +1,94 @@
+﻿
+<div id="frmUpdate" class="form-horizontal">
+    <div class="form-group">
+        <div class="row">
+            <label class="col-sm-3">Chọn nhà cung cấp</label>
+            <div class="col-sm-8">
+                <select id="cbNCC" name="">
+                    @foreach (var item in (List<ChuyenDeDiu.Models.NhaCungCap>)ViewData["NhaCungCap"])
+                    {
+                        <option value="@item.Ma">
+                            @item.Ten
+                        </option>
+                    }
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="row">
+            <label class="col-sm-3">Nhân viên thực hiện</label>
+            <div class="col-sm-8">
+                <select id="cbNhanVien" name="DepartmentId">
+                    @foreach (var item in (List<ChuyenDeDiu.Models.NhanVien>)ViewData["NhanVien"])
+                    {
+                        <option value="@item.Ma">
+                            @item.HoTen
+                        </option>
+                    }
+                </select>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    var frmUpdate = $('#frmUpdate');
+    $(document).ready(function () {
+        addRequired(frmUpdate);
+        frmUpdate.find('lbStatus').on('click', function () {
+            frmUpdate.find('ckbStatus').prop('checked') = !frmUpdate.find('ckbStatus').prop('checked')
+        })
+    });
+
+    $('#modal-form').find('#btnSave').off("click").on('click', function (e) {
+        e.preventDefault();
+        create();
+    });
+    function create() {
+        if (ValidateForm(frmUpdate)) {
+            return;
+        }
+       
+        $.ajax({
+            url: urlDomain + "/create",
+            method: "POST",
+            data: {
+                MaNV: frmUpdate.find('#cbNCC').val(),
+                MaNCC: frmUpdate.find('#cbNhanVien').val(),
+              
+            }
+            , success: function (response) {
+                
+                if (response.result) {
+                    // datasource = response.data
+                    console.log(response);
+                    showAlert("Thêm mới thành công", 2)
+                   // getData();
+                    window.location.href = urlDomain + "/chitiet?ma=" + response.data.Ma;
+
+                } else {
+                    showAlert(response.message)
+                }
+            }
+        });
+        function getData() {
+           
+            $.ajax({
+                url: urlDomain + "/getlist" ,
+                method: "GET",
+                data: {
+                    title: frmFilter.find('#txtName').val(),
+                    take: take,
+                    skip: skip
+                }
+                , success: function (response) {
+                    $('#dtTable').html(response);
+                 
+                }
+            });
+        }
+    }
+
+</script>
+
+

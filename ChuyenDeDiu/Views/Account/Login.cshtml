@@ -1,0 +1,125 @@
+﻿
+
+@{
+    Layout = null;
+}
+
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Đăng nhập hệ thống</title>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <link href="~/Assets/plugins/bootstrap4-duallistbox/bootstrap-duallistbox.min.css" rel="stylesheet" />
+    <link href="~/Assets/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.css" rel="stylesheet" />
+    <link href="~/Assets/plugins/fontawesome-free/css/all.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/Assets/plugins/toastr/toastr.min.css">
+    <link href="~/Assets/plugins/loading-modal/css/jquery.loadingModal.css" rel="stylesheet" />
+    <link href="~/Assets/dist/css/LoginCss.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <script src="~/Assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+  
+    <script src="~/Scripts/site.js"></script>
+    <script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit&hl=vi"
+            async defer>
+    </script>
+
+    <!------ Include the above in your HEAD tag ---------->
+</head>
+
+
+<body>
+    <div id="login">
+
+        <div class="container">
+            <div id="login-row" class="row justify-content-center align-items-center">
+                <div id="login-column" class="col-md-6">
+                    <div id="login-box" class="col-md-12">
+                        <div id="login-form" class="form">
+                            <div class="row login-header">
+
+                                <div class="col-10 text-left"><h3>ĐĂNG NHẬP HỆ THỐNG</h3></div>
+                            </div>
+
+                            <div class=" form-group">
+                                <label for="username" class="text-info">Tên đăng nhập:</label><br>
+                                <input required type="text" name="username" id="username" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="password" class="text-info">Mật khẩu:</label><br>
+                                <input required type="password" name="password" id="password" class="form-control">
+                            </div>
+                            @*<div class="form-group row">
+                                    <div class="col-6"><label for="remember-me" class="text-info"><span>Nhớ mật khẩu</span> <span><input id="remember-me" name="remember-me" type="checkbox"></span></label><br></div>
+                                    <div class="col-6">
+                                        <a href="/tai-khoan/quen-mat-khau" class="text-info">Quên mật khẩu</a>
+                                    </div>
+                                </div>*@
+
+
+
+                            <div class="form-group">
+                                @*<div class="col-7  d-flex align-items-center">
+                                        <h2 type="text" id="mainCaptcha"></h2>
+                                    </div>
+                                    <div class="col-1 d-flex align-items-center">
+                                        <a href="javascript:;" id="refresh" onclick="Captcha();"><i class="fas fa-redo-alt"></i></a>
+                                    </div>
+                                    <div class="col-4  d-flex align-items-center">
+                                        <input type="text" placeholder="Mã xác thực" class="form-control" id="txtInput" />
+                                    </div>*@
+                                @*<div class="g-recaptcha"
+                                    data-sitekey="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"></div>*@
+                                <div id="html_element"></div>
+                            </div>
+                            <div class="form-group text-center">
+                                <input type="button" onclick="login()" name="login" class="btn btn-info btn-md" id="btnLogin" value="Đăng nhập">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    @*<script src="~/Assets/dist/js/Account/Login.js"></script>*@
+    <script>
+        function login() {
+
+            //addRequired($("#login-box"))
+            //if (ValidateFormLogin($("#login-box"))) {
+            //    return;
+            //}
+            //if (!checkCaptcha) {
+            //    showAlert("Vui lòng ấn xác nhận")
+            //    return;
+            //}
+            //if (!ValidCaptcha()) {
+            //    return;
+            //}
+            
+            $.ajax({
+                url: "/account/login",
+                method: "post",
+                data: {
+                    UserName: $("#username").val(),
+                    Password: $("#password").val(),
+
+                },
+                success: function (response) {
+                    if (response.result) {
+                        location.href = "/"
+                    }
+                    else {
+                        hideLoading();
+                        showAlert(response.message, 1)
+                    }
+                }
+            })
+
+        }
+    </script>
+</body>
+
+</html>

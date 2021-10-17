@@ -1,0 +1,83 @@
+﻿@model ChuyenDeDiu.Models.PhieuNhap
+
+
+
+@{
+    ViewBag.Title = "Thông tin phiếu nhập";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="card">
+    <div class="card-body border-info" style="height:100px">
+        <div class="row" id="frmFilter">
+            <input  type="hidden" value="@Model.Ma" id="txtMaPhieu"/>
+            <div class="col-4">
+                <h4>Nhân viên nhập: @Model.NhanVien.HoTen</h4>
+            </div>
+            <div class="col-4">
+                <h4>Nhà cung cấp: @Model.NhaCungCap.Ten</h4>
+            </div>
+            <div class="col-4">
+                <button id="btnCreate" style="float:right" class="btn btn-success">Nhập thêm cây</button>
+            </div>
+        </div>
+    </div>
+    <!-- /.card-header -->
+    <div id="dtTable">
+    </div>
+    <!-- /.card-body -->
+</div>
+<div id="dtTable">
+</div>
+<script>
+    var frmFilter = $('#frmFilter');
+    var urlDomain = "/PhieuNhap";
+    var take = 10;
+    var skip = 0;
+    $(document).ready(function () {
+        getData("", -1);
+        searching();
+        frmFilter.find('#btnCreate').on('click', function () {
+            openCreate();
+        });
+    });
+    function searching() {
+        frmFilter.find("#btnSearch").on('click', function () {
+            var name = frmFilter.find("#txtName").val();
+            var status = frmFilter.find("#drStatus").val()
+            getData(name, status);
+        });
+    }
+    function getData(name, status) {
+
+        $.ajax({
+            url: urlDomain + "/getlistChiTiet?maPhieu=" + $("#txtMaPhieu").val(),
+            method: "GET",
+            data: {
+                title: frmFilter.find('#txtName').val(),
+                take: take,
+                skip: skip
+            }
+            , success: function (response) {
+                $('#dtTable').html(response);
+
+            }
+        })
+    }
+    //function filterData(txtSearch) {
+    //    var oTable = dtTable.find('#tblDisplay').DataTable();
+    //    oTable.fn
+    //}
+    function openCreate() {
+        $.ajax({
+            url: urlDomain + "/createChiTiet",
+            method: "Get",
+            success: function (response) {
+                showContentModal(response, "Tạo mới nhà cung cấp")
+            }
+        });
+    }
+
+</script>
+
+

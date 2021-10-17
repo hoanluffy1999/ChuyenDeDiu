@@ -1,0 +1,161 @@
+﻿@model List<ChuyenDeDiu.Models.NhaCungCap>
+<table style="width:100%;height:100%;" id="tblDisplay" class=" table table-bordered table-hover table-striped">
+    <thead>
+        <tr>
+            <th style="text-align:center;width:5%;">STT</th>
+            <th style="width:10%">Tên </th>
+            <th style="width:10%">Địa chỉ</th>
+            <th style="width:10%">Email </th>
+            <th style="width:10%">Số điện thoại</th>
+            <th style="text-align:center;width:10%">Thao tác</th>
+        </tr>
+    </thead>
+    <tbody>
+        @for (int i = 0; i < Model.Count; i++)
+        //@foreach (var item in Model)
+        {
+            var item = Model[i];
+        <tr id="row_@item.Ma">
+            <td style=" text-align:center;width: 5%;">
+                @(i+1)
+            </td>
+            <td style="width:20%;">@item.Ten</td>
+            <td style="width:40%;">@item.DiaChi</td>
+            <td style="width:20%;">@item.Email</td>
+            <td style="width:40%;">@item.SDT</td>
+
+            <td style="text-align:center;width:10%;">
+
+                <a href="javascript:;" class="btn-delete" onclick="deleteItem(@item.Ma)"><i class="fas fa-trash-alt"></i></a>
+                <a class="btn-update" href="javascript:;" onclick="openUpdate(@item.Ma)"><i class="fas fa-edit"></i></a>
+
+
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>
+<script>
+    var tblDisplay = $('#tblDisplay');
+    //$(document).ready(function () {
+    //    $('#btnUpdate').on('click', function () {
+    //        openUpdate();
+    //    });
+    //    $('#btnDelete').on('click', function () {
+    //        openUdapte();
+    //    });
+    //});
+    $(document).ready(function () {
+        //setStatus();
+        setDataTable();
+
+    });
+    $(".checkStatus").off("click").on('click', function (e) {
+        var id = $(this).val();
+        console.log(id)
+        var status = $(this).prop('checked') ? 1 : 0;
+        $.ajax({
+            url: urlDomain + '/update-status',
+            method: "POST",
+            data: {
+                Id: id,
+                Status: status
+            }
+            , success: function (response) {
+
+            }
+        })
+    })
+    function setStatus() {
+        tblDisplay.find('input[type="checkbox"]').each(function () {
+            if ($(this).val() == 1) {
+                $(this).prop('checked', true);
+            }
+            $(this).click(function (event) {
+                event.preventDefault();
+                event.stopPropagation();
+            });
+        });
+    }
+    function setDataTable() {
+        tblDisplay.DataTable({
+            "paging": true,
+            "lengthChange": false,
+            "searching": true,
+            "ordering": true,
+            "info": false,
+            "autoWidth": false,
+            "responsive": true,
+            "sDom": 'lrtip',
+            "columnDefs": [
+                { "orderable": false, "targets": 2 },
+                { "orderable": false, "targets": 3 },
+          
+            ],
+            "language": {
+                "emptyTable": "Không tìm thấy dữ liệu"
+            }
+        });
+        $(".checkStatus").off("click").on('click', function (e) {
+            var id = $(this).val();
+            var status = $(this).prop('checked') ? 1 : 0;
+            $.ajax({
+                url: urlDomain + '/delete-or-restore',
+                method: "POST",
+                data: {
+                    Id: id,
+                    Status: status
+                }
+                , success: function (response) {
+
+                }
+            })
+        })
+    }
+    function openUpdate(id) {
+        $.ajax({
+            url: urlDomain + "/update?id=" + id,
+            method: "Get",
+            success: function (response) {
+                showContentModal(response, "Cập nhật đơn vị")
+            }
+        });
+        $(".checkStatus").off("click").on('click', function (e) {
+            var id = $(this).val();
+            var status = $(this).prop('checked') ? 1 : 0;
+            $.ajax({
+                url: urlDomain + '/delete-or-restore',
+                method: "POST",
+                data: {
+                    Id: id,
+                    Status: status
+                }
+                , success: function (response) {
+
+                }
+            })
+        })
+    }
+    function deleteItem(id) {
+
+            $.ajax({
+            url: urlDomain + '/delete',
+            method: "POST",
+            data: {
+                Ma: id,
+            }
+            , success: function (response) {
+                if (response.result) {
+                    $("#row_" + id).slideUp();
+                    showAlert("Xóa dữ liệu thành công", 2)
+
+                } else {
+                    showAlert(response.message)
+
+                }
+            }
+        })
+
+    }
+   
+</script>

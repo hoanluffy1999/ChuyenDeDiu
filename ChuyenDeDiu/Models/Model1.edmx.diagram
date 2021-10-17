@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="a6247cae71044b14b8386623b15329b8" Name="Diagram1">
+        <EntityTypeShape EntityType="QLCayCanhModel.ChiTiepPhieuNhap" Width="1.5" PointX="5.25" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLCayCanhModel.ChiTiepPhieuXuat" Width="1.5" PointX="2.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLCayCanhModel.NhaCungCap" Width="1.5" PointX="0.75" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLCayCanhModel.NhanVien" Width="1.5" PointX="0.75" PointY="5" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLCayCanhModel.PhanLoai" Width="1.5" PointX="0.75" PointY="9.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLCayCanhModel.PhieuNhap" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLCayCanhModel.PhieuXuat" Width="1.5" PointX="4.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLCayCanhModel.SanPham" Width="1.5" PointX="3" PointY="8.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLCayCanhModel.sysdiagram" Width="1.5" PointX="6.75" PointY="4.75" IsExpanded="true" />
+        <AssociationConnector Association="QLCayCanhModel.FK_ChiTiepPhieuNhap_PhieuNhap" ManuallyRouted="false" />
+        <AssociationConnector Association="QLCayCanhModel.FK_ChiTiepPhieuNhap_SanPham" ManuallyRouted="false" />
+        <AssociationConnector Association="QLCayCanhModel.FK_PhieuNhap_NhaCungCap1" ManuallyRouted="false" />
+        <AssociationConnector Association="QLCayCanhModel.FK_PhieuNhap_NhanVien" ManuallyRouted="false" />
+        <AssociationConnector Association="QLCayCanhModel.FK_SanPham_PhanLoai" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
