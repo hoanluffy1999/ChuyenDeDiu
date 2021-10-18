@@ -1,6 +1,7 @@
 ﻿@*
     For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 *@
+@{ Layout = "~/Views/Shared/_Layout.cshtml"; }
 @model  ChuyenDeDiu.Models.PhanLoai
 <div id="frmUpdate" class="form-horizontal">
     <input type="hidden" value="@Model.Ma" id="hdId" />
@@ -21,8 +22,8 @@
             </div>
         </div>
     </div>
-   
-   
+
+
 </div>
 <script>
     var frmUpdate = $('#frmUpdate');
@@ -69,7 +70,7 @@
                 if (response.result) {
                     // datasource = response.data
                     showAlert(response.message, 2)
-                    getData("",-1);
+                    getData("", -1);
                     hideContentModal()
 
                 } else {
@@ -78,7 +79,7 @@
             }
         })
     }
-    function getData(name,status) {
+    function getData(name, status) {
         showLoading()
         $.ajax({
             url: urlDomain + "/getlist",

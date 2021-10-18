@@ -1,4 +1,5 @@
-﻿
+﻿@{ Layout = "~/Views/Shared/_Layout.cshtml"; }
+
 <div id="frmUpdate" class="form-horizontal">
     <div class="form-group">
         <div class="row">
@@ -48,22 +49,22 @@
         if (ValidateForm(frmUpdate)) {
             return;
         }
-       
+
         $.ajax({
             url: urlDomain + "/create",
             method: "POST",
             data: {
                 MaNV: frmUpdate.find('#cbNCC').val(),
                 MaNCC: frmUpdate.find('#cbNhanVien').val(),
-              
+
             }
             , success: function (response) {
-                
+
                 if (response.result) {
                     // datasource = response.data
                     console.log(response);
                     showAlert("Thêm mới thành công", 2)
-                   // getData();
+                    // getData();
                     window.location.href = urlDomain + "/chitiet?ma=" + response.data.Ma;
 
                 } else {
@@ -72,9 +73,9 @@
             }
         });
         function getData() {
-           
+
             $.ajax({
-                url: urlDomain + "/getlist" ,
+                url: urlDomain + "/getlist",
                 method: "GET",
                 data: {
                     title: frmFilter.find('#txtName').val(),
@@ -83,7 +84,7 @@
                 }
                 , success: function (response) {
                     $('#dtTable').html(response);
-                 
+
                 }
             });
         }
