@@ -104,7 +104,7 @@ namespace ChuyenDeDiu.Controllers
         public ActionResult ChiTiet(int ma)
         {
             var data = db.PhieuNhaps.Where(x => x.Ma == ma).FirstOrDefault();
-            return View(data);
+            return PartialView(data);
         }
 
         /// <summary>

@@ -86,12 +86,13 @@
     //    oTable.fn
     //}
     function openCreate() {
-        $.ajax({
-            url: urlDomain + "/create",
-            method: "Get",
-            success: function (response) {
-                showContentModal(response, "Thêm phiếu nhập")
-            }
-        });
+        window.location.href = urlDomain + "/create"
+        //$.ajax({
+        //    url: urlDomain + "/create",
+        //    method: "Get",
+        //    success: function (response) {
+        //        showContentModal(response, "Thêm phiếu nhập")
+        //    }
+        //});
     }
 </script>

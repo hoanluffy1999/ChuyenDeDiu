@@ -5,7 +5,7 @@
         <div class="row">
             <label class="col-sm-3">Chọn nhà cung cấp</label>
             <div class="col-sm-8">
-                <select id="cbNCC" name="">
+                <select  class="form-control" id="cbNCC" name="">
                     @foreach (var item in (List<ChuyenDeDiu.Models.NhaCungCap>)ViewData["NhaCungCap"])
                     {
                         <option value="@item.Ma">
@@ -45,6 +45,7 @@
 </div>
 <script>
     var frmUpdate = $('#frmUpdate');
+    var urlDomain = "/phieunhap"
     $(document).ready(function () {
         addRequired(frmUpdate);
         frmUpdate.find('lbStatus').on('click', function () {
@@ -57,9 +58,9 @@
         create();
     });
     function create() {
-        if (ValidateForm(frmUpdate)) {
-            return;
-        }
+        //if (ValidateForm(frmUpdate)) {
+        //    return;
+        //}
 
         $.ajax({
             url: urlDomain + "/create",
@@ -77,6 +78,8 @@
                     // getData();
                     //window.location.href = urlDomain + "/chitiet?ma=" + response.data.Ma;
                     getChiTiet(response.data.Ma)
+                    $('#btnThemPhieu').attr("display": "none");
+
                 } else {
                     showAlert(response.message)
                 }
