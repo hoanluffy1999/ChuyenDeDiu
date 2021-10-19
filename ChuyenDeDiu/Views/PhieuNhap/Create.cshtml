@@ -31,6 +31,17 @@
             </div>
         </div>
     </div>
+    <div class="form-group">
+        <div class="row">
+            <label class="col-sm-3"></label>
+            <div class="col-sm-8">
+               <button id="btnThemPhieu" class="btn btn-success">Thêm phiếu</button>
+            </div>
+        </div>
+    </div>
+    <div id="dtChiTiet">
+
+    </div>
 </div>
 <script>
     var frmUpdate = $('#frmUpdate');
@@ -41,7 +52,7 @@
         })
     });
 
-    $('#modal-form').find('#btnSave').off("click").on('click', function (e) {
+    $('#btnThemPhieu').off("click").on('click', function (e) {
         e.preventDefault();
         create();
     });
@@ -56,7 +67,6 @@
             data: {
                 MaNV: frmUpdate.find('#cbNCC').val(),
                 MaNCC: frmUpdate.find('#cbNhanVien').val(),
-
             }
             , success: function (response) {
 
@@ -65,8 +75,8 @@
                     console.log(response);
                     showAlert("Thêm mới thành công", 2)
                     // getData();
-                    window.location.href = urlDomain + "/chitiet?ma=" + response.data.Ma;
-
+                    //window.location.href = urlDomain + "/chitiet?ma=" + response.data.Ma;
+                    getChiTiet(response.data.Ma)
                 } else {
                     showAlert(response.message)
                 }
@@ -89,7 +99,16 @@
             });
         }
     }
+    getChiTiet = (ma) => {
+        $.ajax({
+            url: urlDomain + "/ChiTiet?ma=" + ma,
+            method: "GET",
+            success: function (response) {
+                $('#dtChiTiet').html(response);
 
+            }
+        });
+    }
 </script>
 
 
