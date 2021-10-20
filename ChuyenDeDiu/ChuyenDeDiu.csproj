@@ -165,6 +165,7 @@
     <Compile Include="Models\NhaCungCap.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\NhaCungCapViewModel.cs" />
     <Compile Include="Models\NhanVien.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -2078,7 +2079,6 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Cay\Create.cshtml" />
     <Content Include="Views\Cay\GetList.cshtml" />
     <Content Include="Views\Cay\Index.cshtml" />
@@ -2104,6 +2104,7 @@
     <Content Include="Views\PhieuNhap\Update.cshtml" />
     <Content Include="Views\PhieuNhap\UpdateChiTiet.cshtml" />
     <Content Include="Views\Shared\_ModalView.cshtml" />
+    <Content Include="Views\Account\Login.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

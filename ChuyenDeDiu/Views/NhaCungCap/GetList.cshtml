@@ -114,10 +114,10 @@
     }
     function openUpdate(id) {
         $.ajax({
-            url: urlDomain + "/update?id=" + id,
+            url: urlDomain + "/update?ma=" + id,
             method: "Get",
             success: function (response) {
-                showContentModal(response, "Cập nhật đơn vị")
+                showContentModal(response, "Cập nhật ")
             }
         });
         $(".checkStatus").off("click").on('click', function (e) {

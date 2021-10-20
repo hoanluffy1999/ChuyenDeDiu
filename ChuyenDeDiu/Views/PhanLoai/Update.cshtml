@@ -55,7 +55,7 @@
         if (ValidateForm(frmUpdate)) {
             return;
         }
-        showLoading();
+       
         $.ajax({
             url: urlDomain + "/update",
             method: "POST",
@@ -65,7 +65,7 @@
                 MoTa: frmUpdate.find('#txtDescription').val()
             }
             , success: function (response) {
-                hideLoading()
+               
                 if (response.result) {
                     // datasource = response.data
                     showAlert(response.message, 2)
@@ -90,7 +90,7 @@
             }
             , success: function (response) {
                 $('#dtTable').html(response);
-                hideLoading()
+               
             }
         });
     }

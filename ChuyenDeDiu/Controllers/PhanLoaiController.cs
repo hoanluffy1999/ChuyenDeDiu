@@ -31,7 +31,7 @@ namespace ChuyenDeDiu.Controllers
         [HttpGet]
         public ActionResult Create()
         {
-            return View();
+            return PartialView();
         }
         [HttpPost]
         public ActionResult Create(PhanLoai inputModel)
@@ -43,8 +43,8 @@ namespace ChuyenDeDiu.Controllers
         [HttpGet]
         public ActionResult Update(int Ma)
         {
-            var entity = db.PhanLoais.Find(Ma);
-            return View(entity);
+            var entity = db.PhanLoais.Where(x=>x.Ma ==Ma).FirstOrDefault();
+            return PartialView(entity);
         }
         [HttpPost]
         public ActionResult Update(PhanLoai inputModel)

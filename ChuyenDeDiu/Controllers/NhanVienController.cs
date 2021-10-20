@@ -42,9 +42,9 @@ namespace ChuyenDeDiu.Controllers
             return Json(new { result = true }); ;
         }
         [HttpGet]
-        public ActionResult Update(int id)
+        public ActionResult Update(int ma)
         {
-            var entity = db.NhanViens.Find(id);
+            var entity = db.NhanViens.Find(ma);
             return PartialView(entity);
         }
         [HttpPost]
@@ -52,9 +52,10 @@ namespace ChuyenDeDiu.Controllers
         {
 
 
-            var entity = db.NhanViens.Find(inputModel.Ma);
+            var entity = db.NhanViens.Where(x => x.Ma == inputModel.Ma).FirstOrDefault();
+            if (entity == null) 
             {
-                return Json(new { result = false });
+                return Json(new { result = false,message = "Thêm thất bại" });
             }
            
             db.Entry(entity).CurrentValues.SetValues(inputModel);

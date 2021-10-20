@@ -20,7 +20,7 @@
         <div class="row">
             <label class="col-sm-3">Nhân viên thực hiện</label>
             <div class="col-sm-8">
-                <select id="cbNhanVien" name="DepartmentId">
+                <select class="form-control" id="cbNhanVien" name="DepartmentId">
                     @foreach (var item in (List<ChuyenDeDiu.Models.NhanVien>)ViewData["NhanVien"])
                     {
                         <option value="@item.Ma">
@@ -66,8 +66,8 @@
             url: urlDomain + "/create",
             method: "POST",
             data: {
-                MaNV: frmUpdate.find('#cbNCC').val(),
-                MaNCC: frmUpdate.find('#cbNhanVien').val(),
+                MaNV: frmUpdate.find('#cbNhanVien').val(),
+                MaNCC: frmUpdate.find('#cbNCC').val(),
             }
             , success: function (response) {
 
@@ -78,7 +78,7 @@
                     // getData();
                     //window.location.href = urlDomain + "/chitiet?ma=" + response.data.Ma;
                     getChiTiet(response.data.Ma)
-                    $('#btnThemPhieu').attr("display": "none");
+                    $('#btnThemPhieu').hide();
 
                 } else {
                     showAlert(response.message)

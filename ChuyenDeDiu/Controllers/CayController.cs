@@ -61,7 +61,7 @@ namespace ChuyenDeDiu.Controllers
             }
             db.Entry(entity).CurrentValues.SetValues(inputModel);
             db.SaveChanges();
-            return Json(new { result = true });
+            return Json(new { result = true,message="Thêm mới thành công"});
         }
         [HttpPost]
         public ActionResult Delete(int Ma)

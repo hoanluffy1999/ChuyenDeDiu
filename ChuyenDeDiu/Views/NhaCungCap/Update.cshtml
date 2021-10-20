@@ -1,33 +1,47 @@
 ﻿@*
     For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 *@
-@model  ChuyenDeDiu.Models.PhanLoai
+@model  ChuyenDeDiu.Models.NhaCungCapViewModel
 <div id="frmUpdate" class="form-horizontal">
-    <input type="hidden" value="@Model.Ma" id="hdId" />
     <div class="form-group">
         <div class="row">
-            <label class="col-sm-3" required>Tên đơn vị</label>
+            <input type="hidden" value="@Model.Ma" id="txtMa"/>
+            <label class="col-sm-3" required>Tên nhóm nhà cung cấp </label>
             <div class="col-sm-8">
-                <input type="text" value="@Model.Ten" required class="form-control" id="txtName" placeholder="Tên đơn vị">
+                <input type="text" value="@Model.Ten" required class="form-control" id="txtName" placeholder="Tên">
             </div>
         </div>
 
     </div>
     <div class="form-group">
         <div class="row">
-            <label class="col-sm-3">Mô tả</label>
+            <label class="col-sm-3">Địa chỉ</label>
             <div class="col-sm-8">
-                <input type="text" value="@Model.MoTa" class="form-control" id="txtDescription" placeholder="Mô tả">
+                <input type="text" class="form-control" value="@Model.DiaChi" id="txtAddress" placeholder="Đia chỉ">
             </div>
         </div>
     </div>
-   
-   
+    <div class="form-group">
+        <div class="row">
+            <label class="col-sm-3">Email</label>
+            <div class="col-sm-8">
+                <input type="text" class="form-control" id="txtEmail" value="@Model.Email" placeholder="email">
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="row">
+            <label class="col-sm-3">Số điện thoại</label>
+            <div class="col-sm-8">
+                <input type="text" value="@Model.SDT" class="form-control" id="txtSdt" placeholder="Số điện thoại">
+            </div>
+        </div>
+    </div>
 </div>
 <script>
     var frmUpdate = $('#frmUpdate');
     $(document).ready(function () {
-        addRequired(frmUpdate);
+     //   addRequired(frmUpdate);
         setStatus();
     });
     $(document).on('keydown', 'input[pattern]', function (e) {
@@ -55,17 +69,19 @@
         if (ValidateForm(frmUpdate)) {
             return;
         }
-        showLoading();
+       
         $.ajax({
             url: urlDomain + "/update",
             method: "POST",
             data: {
-                Ma: frmUpdate.find('#hdId').val(),
+                Ma: frmUpdate.find('#txtMa').val(),
                 Ten: frmUpdate.find('#txtName').val(),
-                MoTa: frmUpdate.find('#txtDescription').val()
+                DiaChi: frmUpdate.find('#txtAddress').val(),
+                Email: frmUpdate.find('#txtEmail').val(),
+                Email: frmUpdate.find('#txtSdt').val(),
             }
             , success: function (response) {
-                hideLoading()
+               
                 if (response.result) {
                     // datasource = response.data
                     showAlert(response.message, 2)
@@ -90,7 +106,7 @@
             }
             , success: function (response) {
                 $('#dtTable').html(response);
-                hideLoading()
+               
             }
         });
     }

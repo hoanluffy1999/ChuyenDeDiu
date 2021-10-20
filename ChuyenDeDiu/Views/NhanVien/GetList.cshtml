@@ -6,9 +6,9 @@
             <th style="width:20%">Tên</th>
             <th style="width:20%">Tên đăng nhập</th>
             <th style="width:10%">Số điện thoại</th>
-            <th style="width:10%">Email</th>
+          
             <th style="width:10%">Ngày sinh</th>
-            <th style="width:10%">Giới tính</th>
+           
             <th style="text-align:center;width:10%">Thao tác</th>
         </tr>
     </thead>
@@ -23,10 +23,10 @@
             </td>
             <td style="width:20%;">@item.HoTen</td>
             <td style="width:20%;">@item.TenDangNhap</td>
-            <td style="width:10%;">@item.NgaySinh</td>
+            <td style="width:10%;">@item.NgaySinh.ToString("dd/MM/yyyy")</td>
+            <td style="width:10%;">@item.SDT</td>
 
-         
-          
+
             <td style="text-align:center;width:10%;">
 
                 <a href="javascript:;" class="btn-delete" onclick="deleteItem(@item.Ma)"><i class="fas fa-trash-alt"></i></a>
@@ -117,10 +117,10 @@
     }
     function openUpdate(id) {
         $.ajax({
-            url: urlDomain + "/update?id=" + id,
+            url: urlDomain + "/update?ma=" + id,
             method: "Get",
             success: function (response) {
-                showContentModal(response, "Cập nhật đơn vị")
+                showContentModal(response, "Cập nhật ")
             }
         });
         $(".checkStatus").off("click").on('click', function (e) {

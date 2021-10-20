@@ -5,7 +5,7 @@
             <div class="row">
                 <label class="col-sm-3" required>Nhóm cây </label>
                 <div class="col-sm-8">
-                    <select id="cbPhanLoai" name="phanloai">
+                    <select id="cbPhanLoai" class="form-control" name="phanloai">
                         @foreach (var item in (List<ChuyenDeDiu.Models.PhanLoai>)ViewData["PhanLoai"])
                         {
                             <option value="@item.Ma">

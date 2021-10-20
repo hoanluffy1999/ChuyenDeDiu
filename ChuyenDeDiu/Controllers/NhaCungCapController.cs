@@ -45,7 +45,16 @@ namespace ChuyenDeDiu.Controllers
         public ActionResult Update(int Ma)
         {
             var entity = db.NhaCungCaps.Find(Ma);
-            return PartialView(entity);
+            NhaCungCapViewModel nhaCungCap = new NhaCungCapViewModel()
+            {
+                DiaChi = entity.DiaChi,
+                Ma = entity.Ma,
+                Email = entity.Email,
+                SDT = entity.SDT,
+                Ten = entity.Ten,
+               
+            };
+            return PartialView(nhaCungCap);
         }
         [HttpPost]
         public ActionResult Update(NhaCungCap inputModel)
